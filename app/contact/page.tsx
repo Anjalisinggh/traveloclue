@@ -6,7 +6,7 @@ import { Facebook, Twitter, Instagram, Youtube, Phone, Mail } from "lucide-react
 export default function LocationContactSection() {
   return (
     <section className="bg-linear-to-b from-[#020b1b] via-[#020617] to-[#020617] py-20 px-6">
-      <div className="max-w-7xl mx-auto space-y-16">
+      <div className="max-w-7xl mx-auto space-y-16 mt-10">
 
         {/* TOP GRID */}
         <div className="grid md:grid-cols-2 gap-12 items-center">

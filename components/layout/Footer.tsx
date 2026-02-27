@@ -24,15 +24,14 @@ export default function Footer() {
         {/* Left - Logo & Address */}
         <div>
           <div className="mb-4 flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[#2a66ce] text-slate-900 font-bold shadow-lg shadow-amber-500/40">
-              FL
+            <div className="flex h-10 w-10 items-center ">
+              <img src="/shortlogo.svg" alt="Logo" width={50} height={50} />
             </div>
-            <h3 className="text-lg font-semibold text-white">FactoryLo</h3>
+            <h3 className="text-lg font-semibold text-white">Traveloclue</h3>
           </div>
 
           <p className="text-sm leading-relaxed text-slate-300">
-            FactoryLo Plot no. 1, Viva Compound, Near Reliance Petrol pump,
-            NH-8, Nalasopara, Dist. Palghar, Maharashtra, India
+            Discover curated travel experiences with Traveloclue.
           </p>
         </div>
 
@@ -40,7 +39,7 @@ export default function Footer() {
         <div>
           <h4 className="mb-2 font-medium text-white">Newsletter</h4>
           <p className="mb-4 text-sm text-slate-300">
-            Get weekly industrial listings
+            Get weekly travel listings
           </p>
 
           <form
@@ -65,24 +64,24 @@ export default function Footer() {
         <div>
           <h4 className="mb-4 font-medium text-white">Contact Us</h4>
           <div className="space-y-2 text-sm text-slate-300">
-            <p>+91-7715866266</p>
-            <p>+91-9892013209</p>
+            <p>contact@traveloclue.com</p>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="relative z-10 bg-[#02081a]/95 border-t border-white/10 py-6">
+      <div className="relative z-10 bg-[#02081a]/95 border-t border-white/10 py-4">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 text-sm text-slate-200 md:flex-row md:justify-between">
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
-            <p>©2023 FactoryLo. All Rights Reserved.</p>
+            <p>©2026 Traveloclue</p>
             <Link href="#" className="hover:underline">
-              Terms &amp; Conditions
+            
+            All Rights Reserved
             </Link>
           </div>
 
           {/* Social Icons */}
-          <div className="flex gap-4">
+          <div className="flex gap-4 ">
             <SocialIcon>
               <Facebook size={16} />
             </SocialIcon>
