@@ -37,7 +37,7 @@ export default function Button({
 
         // Variant styles
         {
-          "bg-linear-to-r from-sky-500 via-emerald-500 to-sky-400 text-white shadow-lg shadow-sky-500/40 hover:brightness-110":
+          "bg-sky-500 text-white shadow-lg shadow-sky-500/40 hover:bg-sky-400":
             variant === "primary",
 
           "bg-slate-900/80 text-slate-100 border border-white/10 hover:bg-slate-800/90 shadow-md shadow-emerald-500/30":

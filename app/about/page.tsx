@@ -7,10 +7,10 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="bg-[#0b1220] text-slate-100">
+    <main className="bg-[#0b1220] text-slate-100 overflow-x-hidden">
 
       {/* ================= HERO ================= */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-24 sm:pt-28 pb-24">
         <div className="grid md:grid-cols-2 gap-16 items-center">
 
           <div>
@@ -45,7 +45,7 @@ export default function AboutPage() {
 
 
       {/* ================= VISION / MISSION ================= */}
-      <section className="mx-auto max-w-6xl px-6 pb-24">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-24">
         <div className="grid gap-8 md:grid-cols-3">
 
           <SimpleCard
@@ -71,9 +71,9 @@ export default function AboutPage() {
       <section className="relative bg-[#0f172a] py-32 overflow-hidden">
 
         {/* subtle background lighting */}
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-emerald-400/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/0 pointer-events-none" />
 
-        <div className="relative mx-auto max-w-5xl px-6">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
 
           <h2 className="text-3xl md:text-4xl font-semibold text-center">
             Our Approach
@@ -123,7 +123,7 @@ export default function AboutPage() {
 
 
       {/* ================= FOUNDER SECTION ================= */}
-      <section className="mx-auto max-w-6xl px-6 py-28">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 py-28">
         <div className="grid md:grid-cols-2 gap-20 items-center">
 
           {/* Image */}
@@ -190,7 +190,7 @@ function TimelineItem({ number, title, text }: any) {
     <div className="relative flex items-start gap-8">
 
       {/* Dot */}
-      <div className="relative z-10 flex-shrink-0">
+      <div className="relative z-10 shrink-0">
         <div className="w-12 h-12 rounded-full bg-[#111827] border border-white/10 flex items-center justify-center shadow-lg shadow-black/40">
           <span className="text-sm font-semibold text-sky-400">
             {number}

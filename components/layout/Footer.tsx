@@ -5,7 +5,7 @@ import { Facebook, Linkedin, Twitter, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-linear-to-b from-[#020b1b] via-[#020617] to-[#020617] pt-16 text-slate-200">
+    <footer className="relative overflow-hidden bg-[#020617] pt-16 text-slate-200">
       {/* Background graphics – make sure leftfooter.svg/rightfooter.svg are in /public */}
       <img
      

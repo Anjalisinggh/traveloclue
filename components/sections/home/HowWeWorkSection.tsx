@@ -28,7 +28,7 @@ export default function HowWeWorkSection() {
         {steps.map((step) => (
           <div
             key={step.title}
-            className="rounded-2xl border border-white/10 bg-slate-900/60 p-6 shadow-[0_24px_70px_rgba(0,0,0,0.7)] backdrop-blur-md"
+            className="rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-md"
           >
             <h3 className="mb-3 text-base font-semibold text-slate-50">
               {step.title}
@@ -40,4 +40,3 @@ export default function HowWeWorkSection() {
     </FullScreenSection>
   );
 }
-
