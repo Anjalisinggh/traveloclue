@@ -2,22 +2,22 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { fadeIn, viewportDefault } from "@/lib/motion";
+import { scaleIn, viewportDefault } from "@/lib/motion";
 
-type FadeInProps = {
+type ScaleInProps = {
   children: ReactNode;
   className?: string;
   viewport?: boolean;
 };
 
-export default function FadeIn({
+export default function ScaleIn({
   children,
   className,
   viewport = true,
-}: FadeInProps) {
+}: ScaleInProps) {
   return (
     <motion.div
-      variants={fadeIn}
+      variants={scaleIn}
       initial="hidden"
       animate={viewport ? undefined : "visible"}
       whileInView={viewport ? "visible" : undefined}

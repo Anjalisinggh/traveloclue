@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
+import { fadeInUp, staggerContainer, viewportDefault } from "@/lib/motion";
 
 interface FullScreenSectionProps {
   id?: string;
@@ -24,30 +28,42 @@ export default function FullScreenSection({
       id={id}
       className="relative min-h-screen overflow-hidden bg-transparent text-slate-100"
     >
-      <div
+      <motion.div
         className={`relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-24 ${
           isCenter ? "items-center text-center" : "items-start text-left"
         }`}
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportDefault}
       >
         {label && (
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-slate-400">
+          <motion.p
+            variants={fadeInUp}
+            className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-slate-400"
+          >
             {label}
-          </p>
+          </motion.p>
         )}
 
-        <h2 className="mb-4 text-3xl font-semibold md:text-4xl lg:text-[2.8rem]">
+        <motion.h2
+          variants={fadeInUp}
+          className="mb-4 text-3xl font-semibold md:text-4xl lg:text-[2.8rem]"
+        >
           {title}
-        </h2>
+        </motion.h2>
 
         {subtitle && (
-          <p className="mb-10 max-w-2xl text-sm text-slate-300 md:text-base">
+          <motion.p
+            variants={fadeInUp}
+            className="mb-10 max-w-2xl text-sm text-slate-300 md:text-base"
+          >
             {subtitle}
-          </p>
+          </motion.p>
         )}
 
-        {children}
-      </div>
+        <motion.div variants={fadeInUp}>{children}</motion.div>
+      </motion.div>
     </section>
   );
 }
-

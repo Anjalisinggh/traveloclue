@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { fadeInUp, staggerContainer, viewportDefault } from "@/lib/motion";
 
 const filters = [
   "All",
@@ -25,7 +27,7 @@ const destinations = [
     name: "Paris",
     country: "France",
     category: "Cities",
-    image: "/destinations/paris.jpg",
+    image: "/destinations/pairs.jpg",
     vibe: "Romance, art, and timeless elegance.",
   },
   {
@@ -60,120 +62,157 @@ export default function DestinationsPage() {
       : destinations.filter((d) => d.category === activeFilter);
 
   return (
-    <main className="min-h-screen bg-[#020617] text-white px-6 py-24">
-
+    <main className="min-h-screen bg-[#020617] px-6 py-24 text-white">
       {/* HERO */}
-      <section className="max-w-6xl mx-auto text-center mb-20">
-        <h1 className="text-4xl md:text-5xl font-semibold mb-6">
+      <motion.section
+        className="mx-auto mb-20 max-w-6xl text-center"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1
+          variants={fadeInUp}
+          className="mb-6 text-4xl font-semibold md:text-5xl"
+        >
           Discover Destinations That Match Your Vibe
-        </h1>
-        <p className="text-slate-400 max-w-2xl mx-auto mb-8">
+        </motion.h1>
+        <motion.p
+          variants={fadeInUp}
+          className="mx-auto mb-8 max-w-2xl text-slate-400"
+        >
           From serene beaches to bustling cities — explore curated locations
           designed for your next unforgettable journey.
-        </p>
+        </motion.p>
 
-        {/* Search */}
-        <div className="max-w-xl mx-auto">
+        <motion.div variants={fadeInUp} className="mx-auto max-w-xl">
           <input
             type="text"
             placeholder="Search country, city, or experience..."
-            className="w-full bg-slate-900/60 border border-white/10 rounded-full px-6 py-3 text-sm backdrop-blur-md focus:outline-none focus:border-sky-400 transition"
+            className="w-full rounded-full border border-white/10 bg-slate-900/40 px-6 py-3 text-sm shadow-lg shadow-black/20 backdrop-blur-xl transition focus:border-sky-400 focus:outline-none"
           />
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* FILTERS */}
-      <section className="max-w-6xl mx-auto mb-14">
-        <div className="flex flex-wrap gap-3 justify-center">
+      <motion.section
+        className="mx-auto mb-14 max-w-6xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <div className="flex flex-wrap justify-center gap-3">
           {filters.map((filter) => (
-            <button
+            <motion.button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-5 py-2 rounded-full text-sm border transition ${
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className={`rounded-full border px-5 py-2 text-sm backdrop-blur-xl transition ${
                 activeFilter === filter
-                  ? "bg-sky-500 text-white border-sky-500"
-                  : "bg-slate-900/50 text-slate-300 border-white/10 hover:bg-slate-800"
+                  ? "border-sky-500 bg-sky-500 text-white"
+                  : "border-white/10 bg-slate-900/40 text-slate-300 shadow-black/20 hover:bg-slate-800/60"
               }`}
             >
               {filter}
-            </button>
+            </motion.button>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* DESTINATION GRID */}
-      <section className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+      <section className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
         {filtered.map((destination, index) => (
-          <DestinationCard key={index} {...destination} />
+          <DestinationCard key={destination.name} {...destination} index={index} />
         ))}
       </section>
 
       {/* TRENDING SECTION */}
-      <section className="max-w-6xl mx-auto mt-24">
-        <h2 className="text-2xl font-semibold mb-8">
-          🔥 Trending Right Now
-        </h2>
+      <motion.section
+        className="mx-auto mt-24 max-w-6xl"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportDefault}
+        variants={staggerContainer}
+      >
+        <motion.h2 variants={fadeInUp} className="mb-8 text-2xl font-semibold">
+          Trending Right Now
+        </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-3">
           {destinations.slice(0, 3).map((destination, index) => (
-            <div
-              key={index}
-              className="relative rounded-2xl overflow-hidden group"
+            <motion.div
+              key={destination.name}
+              variants={fadeInUp}
+              whileHover={{ y: -4 }}
+              className="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg shadow-black/20"
             >
-              <Image
-                src={destination.image}
-                alt={destination.name}
-                width={500}
-                height={300}
-                className="object-cover h-56 w-full group-hover:scale-110 transition duration-500"
-              />
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-end p-4">
+              <div className="relative h-56 overflow-hidden">
+                <Image
+                  src={destination.image}
+                  alt={destination.name}
+                  width={500}
+                  height={300}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute inset-0 flex items-end bg-black/30 p-4 backdrop-blur-md">
                 <h3 className="text-lg font-medium">
                   {destination.name}, {destination.country}
                 </h3>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }
-
-/* DESTINATION CARD COMPONENT */
 
 function DestinationCard({
   name,
   country,
   image,
   vibe,
+  index,
 }: {
   name: string;
   country: string;
   image: string;
   vibe: string;
+  index: number;
 }) {
   return (
-    <div className="group relative rounded-2xl overflow-hidden bg-slate-900/60 border border-white/10 backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-500">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportDefault}
+      variants={fadeInUp}
+      transition={{ delay: index * 0.08 }}
+      whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)" }}
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/40 shadow-xl shadow-black/30 backdrop-blur-xl transition-shadow duration-300"
+    >
       <div className="relative h-56 overflow-hidden">
         <Image
           src={image}
           alt={name}
           width={500}
           height={300}
-          className="object-cover w-full h-full group-hover:scale-110 transition duration-500"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
 
       <div className="p-5">
-        <h3 className="text-xl font-semibold mb-1">
+        <h3 className="mb-1 text-xl font-semibold">
           {name}, {country}
         </h3>
-        <p className="text-slate-400 text-sm mb-4">{vibe}</p>
-        <button className="text-sm text-sky-400 hover:text-sky-300 transition">
+        <p className="mb-4 text-sm text-slate-400">{vibe}</p>
+        <motion.button
+          whileHover={{ x: 4 }}
+          className="text-sm text-sky-400 transition hover:text-sky-300"
+        >
           Explore →
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 }

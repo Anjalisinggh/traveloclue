@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,9 +11,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
+      setScrolled(window.scrollY > 30);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -21,88 +23,120 @@ export default function Navbar() {
   const closeMobile = () => setMobileOpen(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
-      <div
-        className={`mx-auto w-full max-w-6xl transition-all duration-500 ease-in-out ${
-          scrolled
-            ? "rounded-full bg-slate-950/90 border border-white/10 backdrop-blur-xl shadow-xl py-2 px-4"
-            : "py-2 px-2"
-        }`}
+    <motion.nav
+      className="fixed left-1/2 z-50 -translate-x-1/2"
+      initial={false}
+      animate={{
+        top: scrolled ? 16 : 28,
+        width: scrolled ? "82%" : "92%",
+      }}
+      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+    >
+      {/* Main navbar */}
+      <motion.div
+        className="flex items-center justify-between px-6"
+        initial={false}
+        animate={{
+          borderRadius: scrolled ? 9999 : 0,
+          backgroundColor: scrolled
+            ? "rgba(2, 6, 23, 0.75)"
+            : "transparent",
+          borderColor: scrolled
+            ? "rgba(255, 255, 255, 0.1)"
+            : "transparent",
+          boxShadow: scrolled
+            ? "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)"
+            : "none",
+          paddingTop: scrolled ? 8 : 14,
+          paddingBottom: scrolled ? 8 : 14,
+        }}
+        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        style={{ backdropFilter: scrolled ? "blur(24px)" : "none" }}
       >
-        <div className="flex items-center justify-between gap-3">
+        {/* Logo */}
+        <Link
+          href="/"
+          onClick={closeMobile}
+          className="flex shrink-0 items-center min-w-0 max-w-[110px] sm:max-w-none"
+        >
+          <Image
+            src={scrolled ? "/shortlogo.svg" : "/logo.svg"}
+            alt="Traveloclue Logo"
+            width={scrolled ? 80 : 115}
+            height={scrolled ? 35 : 55}
+            className="h-auto w-full max-h-8 object-contain transition-all duration-500 sm:max-h-[55px]"
+            priority
+          />
+        </Link>
 
-          {/* ✅ Logo (Properly constrained for mobile) */}
-          <Link
-            href="/"
-            onClick={closeMobile}
-            className="flex items-center shrink min-w-0 max-w-[110px] sm:max-w-none"
-          >
-            <Image
-              src={scrolled ? "/shortlogo.svg" : "/logo.svg"}
-              alt="Traveloclue Logo"
-              width={scrolled ? 90 : 130}
-              height={scrolled ? 40 : 60}
-              className="object-contain w-full h-auto max-h-9 sm:max-h-[60px] transition-all duration-500"
-              priority
-            />
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="/destinations">Destinations</NavLink>
-            <NavLink href="/contact">Contact</NavLink>
-          </div>
-
-          {/* Mobile Button */}
-          <button
-            onClick={toggleMobile}
-            className="md:hidden shrink-0 inline-flex items-center justify-center rounded-full border border-white/15 bg-black/30 px-3 py-2 text-white backdrop-blur-sm"
-          >
-            <div className="space-y-1">
-              <span
-                className={`block h-0.5 w-5 bg-white transition-all duration-300 ${
-                  mobileOpen ? "translate-y-[6px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-0.5 w-5 bg-white transition-all duration-300 ${
-                  mobileOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`block h-0.5 w-5 bg-white transition-all duration-300 ${
-                  mobileOpen ? "-translate-y-[6px] -rotate-45" : ""
-                }`}
-              />
-            </div>
-          </button>
+        {/* Desktop Links */}
+        <div className="hidden items-center gap-8 md:flex">
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/about">About</NavLink>
+          <NavLink href="/destinations">Destinations</NavLink>
+          <NavLink href="/contact">Contact</NavLink>
         </div>
-      </div>
+
+        {/* Mobile Hamburger */}
+        <button
+          onClick={toggleMobile}
+          aria-expanded={mobileOpen}
+          aria-label="Toggle menu"
+          className="shrink-0 inline-flex items-center justify-center rounded-full border border-white/10 bg-slate-900/50 px-3 py-2 text-white backdrop-blur-xl md:hidden"
+        >
+          <div className="space-y-1">
+            <span
+              className={`block h-0.5 w-5 bg-white transition-all duration-300 ${
+                mobileOpen ? "translate-y-[6px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-5 bg-white transition-all duration-300 ${
+                mobileOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-5 bg-white transition-all duration-300 ${
+                mobileOpen ? "-translate-y-[6px] -rotate-45" : ""
+              }`}
+            />
+          </div>
+        </button>
+      </motion.div>
 
       {/* Mobile Dropdown */}
-      {mobileOpen && (
-        <div className="md:hidden mt-3">
-          <div className="mx-auto w-full max-w-6xl px-4">
-            <div className="rounded-2xl bg-slate-950/95 border border-white/10 backdrop-blur-xl shadow-xl py-3">
-              <MobileNavLink href="/" onClick={closeMobile}>
-                Home
-              </MobileNavLink>
-              <MobileNavLink href="/about" onClick={closeMobile}>
-                About
-              </MobileNavLink>
-              <MobileNavLink href="/destinations" onClick={closeMobile}>
-                Destinations
-              </MobileNavLink>
-              <MobileNavLink href="/contact" onClick={closeMobile}>
-                Contact
-              </MobileNavLink>
-            </div>
-          </div>
+      <motion.div
+        initial={false}
+        animate={{
+          height: mobileOpen ? "auto" : 0,
+          opacity: mobileOpen ? 1 : 0,
+        }}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        className="overflow-hidden md:hidden"
+      >
+        <div className="mt-3">
+          <motion.div
+            initial={false}
+            animate={{ opacity: mobileOpen ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="rounded-2xl border border-white/10 bg-slate-900/50 px-4 py-3 shadow-xl shadow-black/30 backdrop-blur-xl"
+          >
+            <MobileNavLink href="/" onClick={closeMobile}>
+              Home
+            </MobileNavLink>
+            <MobileNavLink href="/about" onClick={closeMobile}>
+              About
+            </MobileNavLink>
+            <MobileNavLink href="/destinations" onClick={closeMobile}>
+              Destinations
+            </MobileNavLink>
+            <MobileNavLink href="/contact" onClick={closeMobile}>
+              Contact
+            </MobileNavLink>
+          </motion.div>
         </div>
-      )}
-    </nav>
+      </motion.div>
+    </motion.nav>
   );
 }
 
@@ -115,7 +149,7 @@ function NavLink({ href, children }: NavLinkProps) {
   return (
     <Link
       href={href}
-      className="text-white/80 hover:text-white transition-colors duration-300 text-sm"
+      className="text-sm text-white/80 transition-colors duration-300 hover:text-white"
     >
       {children}
     </Link>
@@ -131,7 +165,7 @@ function MobileNavLink({ href, children, onClick }: MobileNavLinkProps) {
     <Link
       href={href}
       onClick={onClick}
-      className="block px-6 py-3 text-sm text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition"
+      className="block rounded-lg px-6 py-3 text-sm text-white/80 transition-colors hover:bg-slate-800/50 hover:text-white"
     >
       {children}
     </Link>
