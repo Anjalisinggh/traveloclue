@@ -62,7 +62,7 @@ export default function FullScreenSection({
           </motion.p>
         )}
 
-        <motion.div variants={fadeInUp}>{children}</motion.div>
+        <div className="min-w-0">{children}</div>
       </motion.div>
     </section>
   );
